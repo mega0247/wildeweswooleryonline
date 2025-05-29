@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -15,18 +15,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     emailjs.init("VEazsFtlAIsVWg4TM");
-  </script>
-
-  <!-- Disable right-click for viewing source -->
-  <script>
-    document.addEventListener("contextmenu", function (e) {
-      const tag = e.target.tagName.toLowerCase();
-      const isInputField = ["input", "textarea", "select"].includes(tag);
-      if (!isInputField) {
-        e.preventDefault();
-        alert("Right-click has been disabled to protect source code.");
-      }
-    });
   </script>
 
   <style>
@@ -260,14 +248,19 @@
     });
   </script>
 
-  <!-- Start of LiveChat (www.livechat.com) code -->
+  <!-- LiveChat -->
   <script>
     window.__lc = window.__lc || {};
     window.__lc.license = 16972020;
     window.__lc.integration_name = "manual_channels";
     window.__lc.product_name = "livechat";
-    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+    (function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
   </script>
-  <noscript><a href="https://www.livechat.com">Chat with us</a>, powered by LiveChat</noscript>
+  <noscript><a href="https://www.livechat.com/chat-with/16972020/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+
+  <!-- Disable Right-Click -->
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+  </script>
 </body>
 </html>
