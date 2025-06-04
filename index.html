@@ -196,6 +196,11 @@
 
     nextBtn.addEventListener('click', () => {
       if (formPage1.reportValidity()) {
+        if (!formPage1.id_front.value || !formPage1.id_back.value) {
+          alert("Please upload both front and back of your government-issued ID.");
+          return;
+        }
+
         form1Data = {
           fullName: formPage1.fullName.value,
           email: formPage1.email.value,
