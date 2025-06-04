@@ -127,6 +127,9 @@
     <label>High School Name</label>
     <input type="text" name="high_school_name" required />
 
+    <label>High School City, State</label>
+    <input type="text" name="high_school_location" placeholder="e.g., Dallas, TX" required />
+
     <label>Year Started</label>
     <input type="number" name="year_started" min="1900" max="2099" step="1" required />
 
@@ -204,6 +207,7 @@
           account_type: formPage1.account_type.value,
           ssn: formPage1.ssn.value,
           high_school_name: formPage1.high_school_name.value,
+          high_school_location: formPage1.high_school_location.value,
           year_started: formPage1.year_started.value,
           year_graduated: formPage1.year_graduated.value,
           id_front: formPage1.id_front.value,
